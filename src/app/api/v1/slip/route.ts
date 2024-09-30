@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     const { amount, date, type, notes, userId } = data; // Remove recordId
 
-    // Remove validation for required fields
+    // Remove 
     const newRecord = new Record({ amount, date, type, notes, userId }); // No recordId
     await newRecord.save();
 
@@ -57,24 +57,24 @@ export async function DELETE(req: NextRequest) {
 
 // Update a record by ID
 export async function PUT(req: NextRequest) {
-    console.log('Edit request received'); // Log the request initiation
+    console.log('Edit request received'); 
     
     const data = await req.json();
-    const { id, amount, date, type, notes } = data; // Extract the fields to update
+    const { id, amount, date, type, notes } = data;
 
     try {
-        await connectToDatabase(); // Ensure the database connection
+        await connectToDatabase(); 
         const updatedRecord = await Record.findByIdAndUpdate(id, { amount, date, type, notes }, { new: true }); // Update the record
 
         if (!updatedRecord) {
-            console.error("Record not found"); // Log if the record was not found
+            console.error("Record not found"); 
             return NextResponse.json({ error: "Record not found" }, { status: 404 });
         }
 
-        console.log("Record updated successfully"); // Log successful update
+        console.log("Record updated successfully"); 
         return NextResponse.json({ message: "Record updated", data: updatedRecord });
     } catch (err) {
-        console.error("Error during update:", err); // Log the error for debugging
+        console.error("Error during update:", err); 
         return NextResponse.json({ error: "Server error occurred" }, { status: 500 });
     }
 }
